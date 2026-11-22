@@ -23,6 +23,12 @@ jobs:
       - name: Build APK with Capacitor
         run: |
           mkdir -p www
+          if [ -f "index.html" ]; then cp index.html www/index.html; fi
+          if [ -f "DayFlow.html" ]; then cp DayFlow.html www/index.html; fi
+          if [ ! -f "www/index.html" ]; then
+            echo "ERROR: Upload DayFlow.html or index.html to the repository first."
+            exit 1
+          fi
           npm init -y
           npm install @capacitor/core@6 @capacitor/cli@6 @capacitor/android@6
           npx cap init "DayFlow" "com.dayflow.app" --web-dir www
